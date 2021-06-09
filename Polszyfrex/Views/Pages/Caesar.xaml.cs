@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Polszyfrex.Views.Pages
 {
@@ -20,9 +8,29 @@ namespace Polszyfrex.Views.Pages
     /// </summary>
     public partial class Caesar : Page
     {
+        private Code.Encryption.Caesar _caesar;
+
         public Caesar()
         {
             InitializeComponent();
+            this._caesar = new Code.Encryption.Caesar();
+        }
+
+        private void Button_Copy(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Clipboard.SetText(fieldResult.Text);
+        }
+
+        private void Button_Encrypt(object sender, RoutedEventArgs e)
+        {
+            this._caesar.TrySetShift(fieldShift.Text);
+            fieldResult.Text = this._caesar.Encrypt(fieldMessage.Text);
+        }
+
+        private void Button_Decrypt(object sender, RoutedEventArgs e)
+        {
+            this._caesar.TrySetShift(fieldShift.Text);
+            fieldResult.Text = this._caesar.Decrypt(fieldMessage.Text);
         }
     }
 }
