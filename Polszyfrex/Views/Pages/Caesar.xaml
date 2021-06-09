@@ -14,10 +14,18 @@
     <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,12"
+            FontSize="18"
+            FontWeight="Bold"
+            Foreground="{DynamicResource ThemeForegroundSecondary}"
+            Text="Caesar" />
+        <StackPanel Grid.Row="1">
             <Label
                 Padding="0,12,0,4"
                 Content="Message"
@@ -33,7 +41,7 @@
                 Text="1" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="0,24,0,24">
+        <StackPanel Grid.Row="2" Margin="0,24,0,24">
             <TextBlock Foreground="{DynamicResource ThemeForegroundSecondary}" Text="Result:" />
             <TextBlock
                 x:Name="fieldResult"
@@ -44,7 +52,7 @@
         </StackPanel>
 
         <StackPanel
-            Grid.Row="2"
+            Grid.Row="3"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
             <controls:MaterialButton

@@ -20,9 +20,27 @@ namespace Polszyfrex.Views.Pages
     /// </summary>
     public partial class Atbash : Page
     {
+        private Code.Encryption.Atbash _atbash;
+
         public Atbash()
         {
             InitializeComponent();
+            this._atbash = new Code.Encryption.Atbash();
+        }
+
+        private void Button_Copy(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Clipboard.SetText(fieldResult.Text);
+        }
+
+        private void Button_Encrypt(object sender, RoutedEventArgs e)
+        {
+            fieldResult.Text = this._atbash.Encrypt(fieldMessage.Text);
+        }
+
+        private void Button_Decrypt(object sender, RoutedEventArgs e)
+        {
+            fieldResult.Text = this._atbash.Decrypt(fieldMessage.Text);
         }
     }
 }
