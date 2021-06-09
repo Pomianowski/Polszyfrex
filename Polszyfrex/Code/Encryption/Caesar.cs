@@ -18,6 +18,12 @@ namespace Polszyfrex.Code.Encryption
         private int _mapLength = 0;
         private int _shift = 0;
 
+        public int Shift
+        {
+            get => this._shift;
+            set => this._shift = value;
+        }
+
         public Caesar(Characters characters = Characters.Letters)
         {
             this._type = characters;
@@ -44,12 +50,6 @@ namespace Polszyfrex.Code.Encryption
                     this._mapLength = 2097152; //UTF-8 U+10000
                     break;
             }
-        }
-
-        public int Shift
-        {
-            get => this._shift;
-            set => this._shift = value;
         }
 
         public void TrySetShift(string? value)
