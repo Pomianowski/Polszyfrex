@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace Polszyfrex.Code.Encryption
 {
-    public sealed class Symmetric: Code.Cipher
+    public sealed class Symmetric : Code.Cipher
     {
-
         private string _key;
 
         public string Key
@@ -46,20 +47,92 @@ namespace Polszyfrex.Code.Encryption
             return new string(Enumerable.Repeat(characters, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public string Encrypt(string message)
+        private string AesEncrypt(string message)
+        {
+            if (this._key.Length < 16 || this._key.Length > 32 || this._key.Length % 8 != 0)
+                return "The key must be between 16 and 32 characters long and divisible by 8.";
+
+            byte[] iv = new byte[16];
+            byte[] array;
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(this._key);
+                aes.IV = iv;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        {
+                            streamWriter.Write(message);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(array);
+        }
+
+        private string AesDecrypt(string message)
+        {
+            if (this._key.Length < 16 || this._key.Length > 32 || this._key.Length % 8 != 0)
+                return "The key must be between 16 and 32 characters long and divisible by 8.";
+
+            Span<byte> base64buffer = new Span<byte>(new byte[message.Length]);
+            if(!Convert.TryFromBase64String(message, base64buffer, out int bytesParsed))
+                return "The text to decode is not a valid BASE64 string.";
+
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(message);
+
+            using (Aes aes = Aes.Create())
+            {
+                try
+                {
+                    aes.Key = Encoding.UTF8.GetBytes(this._key);
+                    aes.IV = iv;
+                    ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                    using (MemoryStream memoryStream = new MemoryStream(buffer))
+                    {
+                        using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                        {
+                            using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                            {
+                                return streamReader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    return "Decoding failed, block size / padding is invalid";
+                }
+            }
+        }
+
+        private void CheckKeys()
         {
             if (string.IsNullOrEmpty(this._key))
-                this._key = this.GenerateKey(16);
+                this._key = this.GenerateKey(32);
+        }
 
-            return message + this._key;
+        public string Encrypt(string message)
+        {
+            this.CheckKeys();
+            return this.AesEncrypt(message);
         }
 
         public string Decrypt(string message)
         {
-            if (string.IsNullOrEmpty(this._key))
-                this._key = this.GenerateKey(16);
-
-            return message;
+            this.CheckKeys();
+            return this.AesDecrypt(message);
         }
     }
 }

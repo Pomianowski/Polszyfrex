@@ -18,6 +18,9 @@ namespace Polszyfrex.Code.Encryption
             int shift_a = Convert.ToByte('a') - 1;
             int shift_z = Convert.ToByte('z') + 1;
 
+            int shift_zero = Convert.ToByte('0') - 1;
+            int shift_nine = Convert.ToByte('9') + 1;
+
             char[] charMap = message.ToCharArray();
 
             for (int i = 0; i < charMap.Length; i++)
@@ -29,6 +32,10 @@ namespace Polszyfrex.Code.Encryption
                 else if(charMap[i] >= 'a' && charMap[i] <= 'z')
                 {
                     charMap[i] = (char)(shift_a + (shift_z - charMap[i]));
+                }
+                else if (charMap[i] >= '0' && charMap[i] <= '9')
+                {
+                    charMap[i] = (char)(shift_zero + (shift_nine - charMap[i]));
                 }
             }
 

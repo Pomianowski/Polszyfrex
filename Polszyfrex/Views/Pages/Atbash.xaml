@@ -32,7 +32,7 @@
                 Padding="0,12,0,4"
                 Content="Message"
                 Foreground="{DynamicResource ThemeForeground}" />
-            <controls:TextBox x:Name="fieldMessage" Placeholder="text to be decrypted or encrypted, eg.: hello world" />
+            <controls:TextBox x:Name="fieldMessage" Placeholder="Text to be decrypted or encrypted, eg.: hello world" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,24,0,24">
@@ -42,7 +42,8 @@
                 Margin="0,4,0,0"
                 FontSize="22"
                 FontWeight="Black"
-                Text="" />
+                Text=""
+                TextWrapping="WrapWithOverflow" />
         </StackPanel>
 
         <StackPanel

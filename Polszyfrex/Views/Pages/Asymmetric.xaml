@@ -36,12 +36,12 @@
                 Padding="0,12,0,4"
                 Content="Public key"
                 Foreground="{DynamicResource ThemeForeground}" />
-            <controls:TextBox x:Name="fieldPublic" Placeholder="eg.: 289OT4N23O9T8YUMA8SDM" />
+            <controls:TextBox x:Name="fieldPublic" Placeholder="eg.: {|V)R07%.v*,GVm]" />
             <Label
                 Padding="0,12,0,4"
                 Content="Private key"
                 Foreground="{DynamicResource ThemeForeground}" />
-            <controls:TextBox x:Name="fieldPrivate" Placeholder="eg.: 289OT4N23O9T8YUMA8SDM" />
+            <controls:TextBox x:Name="fieldPrivate" Placeholder="eg.: {|V)R07%.v*,GVm]" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,24,0,24">
@@ -51,7 +51,8 @@
                 Margin="0,4,0,0"
                 FontSize="22"
                 FontWeight="Black"
-                Text="" />
+                Text=""
+                TextWrapping="WrapWithOverflow" />
         </StackPanel>
 
         <StackPanel
