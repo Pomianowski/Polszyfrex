@@ -35,11 +35,11 @@ namespace Polszyfrex.Views
             rootNavigation.Items = new ObservableCollection<NavItem>
             {
                 new NavItem { Icon = MaterialIcon.GridView, Name = "Dashboard", Tag = "Dashboard", Type = typeof(Pages.Dashboard)},
-                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Caesar Cipher", Tag = "Caesar", Type = typeof(Pages.Caesar)},
-                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Atbash Cipher", Tag = "Atbash", Type = typeof(Pages.Atbash)},
-                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Symmetric Cipher", Tag = "Symmetric", Type = typeof(Pages.Symmetric)},
-                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Asymmetric Cipher", Tag = "Asymmetric", Type = typeof(Pages.Asymmetric)},
-                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Steganography", Tag = "Steganography", Type = typeof(Pages.Steganography)}
+                new NavItem { Icon = MaterialIcon.Orientation, Name = "Caesar Cipher", Tag = "Caesar", Type = typeof(Pages.Caesar)},
+                new NavItem { Icon = MaterialIcon.AdjustHologram, Name = "Atbash Cipher", Tag = "Atbash", Type = typeof(Pages.Atbash)},
+                new NavItem { Icon = MaterialIcon.NoiseCancelation, Name = "Symmetric Cipher", Tag = "Symmetric", Type = typeof(Pages.Symmetric)},
+                new NavItem { Icon = MaterialIcon.NoiseCancelationOff, Name = "Asymmetric Cipher", Tag = "Asymmetric", Type = typeof(Pages.Asymmetric)},
+                new NavItem { Icon = MaterialIcon.Picture, Name = "Steganography", Tag = "Steganography", Type = typeof(Pages.Steganography)}
             };
 
             rootNavigation.Footer = new ObservableCollection<NavItem>

@@ -38,27 +38,59 @@
             Grid.Column="0"
             Margin="0,0,4,0">
 
-            <TextBlock Text="A simple and uncomplicated way to make your application written in WPF keep up with modern design trends. Library changes the base elements like Window, Page or Button, and also includes additional controls like Navigation or Popup." TextWrapping="WrapWithOverflow" />
+            <TextBlock Text="This wonderful application was written in one day, based on proprietary solutions. Is it working? Well, on average, but let's appreciate the fact that at least it looks cool." TextWrapping="WrapWithOverflow" />
 
             <Grid Margin="0,12,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <materialwpf:MaterialButton
+                    Grid.Row="0"
                     Grid.Column="0"
                     Margin="0,0,4,0"
                     Click="NavButton_Click"
                     Content="Caesar"
-                    Glyph="Calories"
-                    Tag="caesar" />
+                    Glyph="Orientation"
+                    Tag="Caesar" />
                 <materialwpf:MaterialButton
+                    Grid.Row="0"
                     Grid.Column="1"
                     Margin="4,0,0,0"
                     Click="NavButton_Click"
-                    Content="AtBash"
-                    Glyph="AspectRatio"
-                    Tag="atbash" />
+                    Content="Atbash"
+                    Glyph="AdjustHologram"
+                    Tag="Atbash" />
+                <materialwpf:MaterialButton
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,8,4,0"
+                    Click="NavButton_Click"
+                    Content="Symmetric"
+                    Glyph="NoiseCancelation"
+                    Tag="Symmetric" />
+                <materialwpf:MaterialButton
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="4,8,0,0"
+                    Click="NavButton_Click"
+                    Content="Asymmetric"
+                    Glyph="NoiseCancelationOff"
+                    Tag="Asymmetric" />
+                <materialwpf:MaterialButton
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0,8,0,0"
+                    Click="NavButton_Click"
+                    Content="Steganography"
+                    Glyph="Picture"
+                    Tag="Steganography" />
             </Grid>
         </StackPanel>
 

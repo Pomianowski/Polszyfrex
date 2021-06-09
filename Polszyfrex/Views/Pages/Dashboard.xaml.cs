@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Polszyfrex.Views.Pages
 {
@@ -27,7 +15,11 @@ namespace Polszyfrex.Views.Pages
 
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
-            (App.Current.MainWindow as Views.Container).rootNavigation.Navigate("Caesar");
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine((sender as Button).Tag);
+#endif
+            (App.Current.MainWindow as Views.Container).rootNavigation.Navigate((sender as Button).Tag as string);
+            
         }
     }
 }
