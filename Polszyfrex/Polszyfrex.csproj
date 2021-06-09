@@ -4,6 +4,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>polszyfrex.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\polszyfrex-banner.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialWPF" Version="1.0.5-prerelease64" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\polszyfrex-banner.png" />
+  </ItemGroup>
 
 </Project>
