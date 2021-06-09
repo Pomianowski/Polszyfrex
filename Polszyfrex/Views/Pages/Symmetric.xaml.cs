@@ -39,11 +39,13 @@ namespace Polszyfrex.Views.Pages
 
         private void Button_Encrypt(object sender, RoutedEventArgs e)
         {
+            this._symmetric.Key = fieldKey.Text;
             fieldResult.Text = this._symmetric.Encrypt(fieldMessage.Text);
         }
 
         private void Button_Decrypt(object sender, RoutedEventArgs e)
         {
+            this._symmetric.Key = fieldKey.Text;
             fieldResult.Text = this._symmetric.Decrypt(fieldMessage.Text);
         }
     }

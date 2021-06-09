@@ -19,6 +19,11 @@ namespace Polszyfrex.Code.Encryption
 
         public string GenerateKey(int length, string pattern = "ULNS")
         {
+            //U - upper case
+            //L - lower case
+            //N - numbers
+            //S - special
+
             if (string.IsNullOrEmpty(pattern))
                 pattern = "ULNS";
 
@@ -26,24 +31,16 @@ namespace Polszyfrex.Code.Encryption
 
             string characters = "";
             if (pattern.Contains("U"))
-            {
                 characters += "GHIJKLMNOPQRSTUVWXYZABCDEF";
-            }
 
             if (pattern.Contains("L"))
-            {
                 characters += "abcdefghijklmnopqrstuvwxyz";
-            }
 
             if (pattern.Contains("N"))
-            {
                 characters += "0123456789";
-            }
 
             if (pattern.Contains("S"))
-            {
                 characters += "!@#$%^&*()_+-={}[];:,.<>?|~";
-            }
 
             Random random = new Random();
             return new string(Enumerable.Repeat(characters, length).Select(s => s[random.Next(s.Length)]).ToArray());
