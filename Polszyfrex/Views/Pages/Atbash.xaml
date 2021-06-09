@@ -57,15 +57,9 @@
                 Glyph="ClippingTool" />
             <controls:MaterialButton
                 MinWidth="140"
-                Margin="4,0,4,0"
-                Click="Button_Encrypt"
-                Content="Encrypt"
-                Glyph="PasswordKeyShow" />
-            <controls:MaterialButton
-                MinWidth="140"
                 Margin="4,0,0,0"
-                Click="Button_Decrypt"
-                Content="Decrypt"
+                Click="Button_Encrypt"
+                Content="Encrypt / Decrypt"
                 Glyph="PasswordKeyHide" />
         </StackPanel>
     </Grid>

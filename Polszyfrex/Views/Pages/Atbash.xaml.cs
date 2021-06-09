@@ -37,10 +37,5 @@ namespace Polszyfrex.Views.Pages
         {
             fieldResult.Text = this._atbash.Encrypt(fieldMessage.Text);
         }
-
-        private void Button_Decrypt(object sender, RoutedEventArgs e)
-        {
-            fieldResult.Text = this._atbash.Decrypt(fieldMessage.Text);
-        }
     }
 }
