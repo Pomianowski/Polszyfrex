@@ -1,19 +1,10 @@
 ﻿using MaterialWPF.UI;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Polszyfrex.Views
 {
@@ -44,6 +35,11 @@ namespace Polszyfrex.Views
             rootNavigation.Items = new ObservableCollection<NavItem>
             {
                 new NavItem { Icon = MaterialIcon.GridView, Name = "Dashboard", Tag = "Dashboard", Type = typeof(Pages.Dashboard)},
+                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Caesar Cipher", Tag = "Caesar", Type = typeof(Pages.Caesar)},
+                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Atbash Cipher", Tag = "Atbash", Type = typeof(Pages.Atbash)},
+                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Symmetric Cipher", Tag = "Symmetric", Type = typeof(Pages.Symmetric)},
+                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Asymmetric Cipher", Tag = "Asymmetric", Type = typeof(Pages.Asymmetric)},
+                new NavItem { Icon = MaterialIcon.DefenderApp, Name = "Steganography", Tag = "Steganography", Type = typeof(Pages.Steganography)}
             };
 
             rootNavigation.Footer = new ObservableCollection<NavItem>
