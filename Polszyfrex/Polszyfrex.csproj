@@ -5,6 +5,10 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>polszyfrex.ico</ApplicationIcon>
+    <Authors>Leszek Pomianowski</Authors>
+    <Product>Leszek Pomianowski</Product>
+    <Description>Encryption and other things...</Description>
+    <Copyright>2021 Leszek Pomianowski</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

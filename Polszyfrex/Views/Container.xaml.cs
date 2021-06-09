@@ -47,8 +47,14 @@ namespace Polszyfrex.Views
                 new NavItem { Icon = MaterialIcon.LockFeedback, Name = "About", Tag = "About", Type = typeof(Pages.About) }
             };
 
+            rootNavigation.OnNavigate = OnNavigate;
             rootNavigation.Frame = rootFrame;
             rootNavigation.Navigate("Dashboard");
+        }
+
+        private void OnNavigate()
+        {
+            rootLogo.Visibility = rootNavigation.PageNow == "Dashboard" ? Visibility.Hidden : Visibility.Visible;
         }
 
         private async void HideSplash()
@@ -60,7 +66,6 @@ namespace Polszyfrex.Views
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     rootGrid.Children.Remove(rootGrid.FindName("rootSplash") as UIElement);
-                    rootLogo.Visibility = Visibility.Visible;
                 });
             });
         }

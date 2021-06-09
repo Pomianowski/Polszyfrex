@@ -24,5 +24,10 @@ namespace Polszyfrex.Views.Pages
         {
             InitializeComponent();
         }
+
+        private void NavButton_Click(object sender, RoutedEventArgs e)
+        {
+            (App.Current.MainWindow as Views.Container).rootNavigation.Navigate("Caesar");
+        }
     }
 }
