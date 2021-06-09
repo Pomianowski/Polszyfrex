@@ -12,11 +12,11 @@ namespace Polszyfrex.Code.Encryption
             //Z = /90
             //a = /97
             //z = /122
-            int shit_A = Convert.ToByte('A') - 1;
-            int shit_Z = Convert.ToByte('Z') + 1;
+            int shift_A = Convert.ToByte('A') - 1;
+            int shift_Z = Convert.ToByte('Z') + 1;
 
-            int shit_a = Convert.ToByte('a') - 1;
-            int shit_z = Convert.ToByte('z') + 1;
+            int shift_a = Convert.ToByte('a') - 1;
+            int shift_z = Convert.ToByte('z') + 1;
 
             char[] charMap = message.ToCharArray();
 
@@ -24,11 +24,11 @@ namespace Polszyfrex.Code.Encryption
             {
                 if (charMap[i] >= 'A' && charMap[i] <= 'Z')
                 {
-                    charMap[i] = (char)(shit_A + (shit_Z - charMap[i]));
+                    charMap[i] = (char)(shift_A + (shift_Z - charMap[i]));
                 }
                 else if(charMap[i] >= 'a' && charMap[i] <= 'z')
                 {
-                    charMap[i] = (char)(shit_a + (shit_z - charMap[i]));
+                    charMap[i] = (char)(shift_a + (shift_z - charMap[i]));
                 }
             }
 
@@ -42,7 +42,6 @@ namespace Polszyfrex.Code.Encryption
 
         public string Decrypt(string message)
         {
-
             return this.ShiftMessage(message);
         }
     }
