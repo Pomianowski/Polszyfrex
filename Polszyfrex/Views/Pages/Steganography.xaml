@@ -2,8 +2,8 @@
     x:Class="Polszyfrex.Views.Pages.Steganography"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:MaterialWPF.Controls;assembly=MaterialWPF"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Polszyfrex.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Steganography"
     d:DesignHeight="450"
@@ -11,5 +11,98 @@
     Style="{StaticResource MaterialPage}"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,12"
+            FontSize="18"
+            FontWeight="Bold"
+            Foreground="{DynamicResource ThemeForegroundSecondary}"
+            Text="Steganography" />
+        <StackPanel Grid.Row="1">
+            <Label
+                Padding="0,12,0,4"
+                Content="Image"
+                Foreground="{DynamicResource ThemeForeground}" />
+            <TextBlock
+                x:Name="fieldImagePath"
+                Margin="0,0,0,4"
+                FontSize="10"
+                Foreground="{DynamicResource ThemeForegroundSecondary}"
+                Text="%userprofile%\AppData\SamplePathOrSomething\UserSettings.json" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="fieldImage"
+                    Grid.Column="0"
+                    Margin="0,0,12,0"
+                    HorizontalAlignment="Stretch"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialTextBox}" />
+                <Button
+                    Grid.Column="1"
+                    Click="Button_Select"
+                    Style="{StaticResource MaterialButton}">
+                    <TextBlock
+                        Margin="0"
+                        Style="{StaticResource MaterialIcon}"
+                        Text="&#xEBB0;" />
+                </Button>
+            </Grid>
+
+            <Label
+                Padding="0,12,0,4"
+                Content="Message"
+                Foreground="{DynamicResource ThemeForeground}" />
+            <controls:TextBox x:Name="fieldMessage" Placeholder="Text to be decrypted or encrypted, eg.: hello world" />
+        </StackPanel>
+
+        <Grid Grid.Row="2" Margin="0,24,0,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                x:Name="fieldImageBefore"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                RenderOptions.BitmapScalingMode="HighQuality"
+                Source="pack://application:,,,/Assets/Images/preview-file.png" />
+            <Image
+                x:Name="fieldImageAfter"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                RenderOptions.BitmapScalingMode="HighQuality"
+                Source="pack://application:,,,/Assets/Images/preview-file.png" />
+        </Grid>
+
+        <StackPanel
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <controls:MaterialButton
+                MinWidth="140"
+                Margin="4,0,4,0"
+                Click="Button_Encrypt"
+                Content="Encrypt"
+                Glyph="PasswordKeyShow" />
+            <controls:MaterialButton
+                MinWidth="140"
+                Margin="4,0,0,0"
+                Click="Button_Decrypt"
+                Content="Decrypt"
+                Glyph="PasswordKeyHide" />
+        </StackPanel>
+    </Grid>
 </Page>

@@ -38,7 +38,7 @@
             Grid.Column="0"
             Margin="0,0,4,0">
 
-            <TextBlock Text="This wonderful application was written in one day, based on proprietary solutions. Is it working? Well, on average, but let's appreciate the fact that at least it looks cool." TextWrapping="WrapWithOverflow" />
+            <TextBlock Text="This wonderful application was written in two days, based on proprietary solutions. Is it working? Well, on average, but let's appreciate the fact that at least it looks cool." TextWrapping="WrapWithOverflow" />
 
             <Grid Margin="0,12,0,0">
                 <Grid.RowDefinitions>
