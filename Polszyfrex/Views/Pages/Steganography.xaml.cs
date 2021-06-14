@@ -22,9 +22,22 @@ namespace Polszyfrex.Views.Pages
     /// </summary>
     public partial class Steganography : Page
     {
+        private BitmapImage _workFile;
         public Steganography()
         {
             InitializeComponent();
+
+            fieldImagePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        }
+
+        private void PreviewFromImage(string path)
+        {
+            this._workFile = new BitmapImage();
+
+            this._workFile.BeginInit();
+            this._workFile.UriSource = new Uri(path);
+            this._workFile.EndInit();
+            fieldImageBefore.Source = this._workFile;
         }
 
         private void Button_Select(object sender, RoutedEventArgs e)
@@ -32,7 +45,7 @@ namespace Polszyfrex.Views.Pages
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 Title = "Polszyfrex - Steganography",
-                Filter = "PNG (*.png)|*.7z;*.zip;*.rar|All Files (*.*)|*.*",
+                Filter = "Image (*.png;*.jpg)|*.png;*.jpg;*.jpeg;*.bmp|All Files (*.*)|*.*",
                 CheckPathExists = true,
                 Multiselect = false,
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
@@ -41,6 +54,7 @@ namespace Polszyfrex.Views.Pages
             if (openFileDialog.ShowDialog() == true)
             {
                 fieldImage.Text = fieldImagePath.Text = openFileDialog.FileName;
+                this.PreviewFromImage(openFileDialog.FileName);
 #if DEBUG
                 System.Diagnostics.Debug.WriteLine(openFileDialog.FileName);
 #endif
@@ -49,12 +63,18 @@ namespace Polszyfrex.Views.Pages
 
         private void Button_Encrypt(object sender, RoutedEventArgs e)
         {
+            if (this._workFile == null)
+                return;
 
+            fieldImageAfter.Source = this._workFile;
         }
 
         private void Button_Decrypt(object sender, RoutedEventArgs e)
         {
+            if (this._workFile == null)
+                return;
 
+            fieldImageAfter.Source = this._workFile;
         }
     }
 }

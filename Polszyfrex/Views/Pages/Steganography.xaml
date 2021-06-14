@@ -34,8 +34,7 @@
                 x:Name="fieldImagePath"
                 Margin="0,0,0,4"
                 FontSize="10"
-                Foreground="{DynamicResource ThemeForegroundSecondary}"
-                Text="%userprofile%\AppData\SamplePathOrSomething\UserSettings.json" />
+                Foreground="{DynamicResource ThemeForegroundSecondary}" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -74,6 +73,7 @@
             <Image
                 x:Name="fieldImageBefore"
                 Grid.Column="0"
+                Margin="0,0,8,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 RenderOptions.BitmapScalingMode="HighQuality"
@@ -81,6 +81,7 @@
             <Image
                 x:Name="fieldImageAfter"
                 Grid.Column="1"
+                Margin="8,0,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 RenderOptions.BitmapScalingMode="HighQuality"
