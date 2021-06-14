@@ -22,11 +22,11 @@ namespace Polszyfrex.Views.Pages
     /// </summary>
     public partial class Steganography : Page
     {
+        private Code.Encryption.Steganography _steganography;
         private BitmapImage _workFile;
         public Steganography()
         {
             InitializeComponent();
-
             fieldImagePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
@@ -66,7 +66,8 @@ namespace Polszyfrex.Views.Pages
             if (this._workFile == null)
                 return;
 
-            fieldImageAfter.Source = this._workFile;
+            this._steganography = new Code.Encryption.Steganography();
+            fieldImageAfter.Source = this._steganography.EncryptText(this._workFile, fieldMessage.Text);
         }
 
         private void Button_Decrypt(object sender, RoutedEventArgs e)
@@ -74,7 +75,8 @@ namespace Polszyfrex.Views.Pages
             if (this._workFile == null)
                 return;
 
-            fieldImageAfter.Source = this._workFile;
+            this._steganography = new Code.Encryption.Steganography();
+            fieldImageAfter.Source = this._steganography.EncryptText(this._workFile, fieldMessage.Text);
         }
     }
 }

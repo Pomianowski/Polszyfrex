@@ -62,7 +62,7 @@
                 Padding="0,12,0,4"
                 Content="Message"
                 Foreground="{DynamicResource ThemeForeground}" />
-            <controls:TextBox x:Name="fieldMessage" Placeholder="Text to be decrypted or encrypted, eg.: hello world" />
+            <controls:TextBox x:Name="fieldMessage" Placeholder="Text to be encrypted, eg.: hello world" />
         </StackPanel>
 
         <Grid Grid.Row="2" Margin="0,24,0,24">
@@ -76,7 +76,7 @@
                 Margin="0,0,8,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                RenderOptions.BitmapScalingMode="HighQuality"
+                RenderOptions.BitmapScalingMode="NearestNeighbor"
                 Source="pack://application:,,,/Assets/Images/preview-file.png" />
             <Image
                 x:Name="fieldImageAfter"
@@ -84,7 +84,7 @@
                 Margin="8,0,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                RenderOptions.BitmapScalingMode="HighQuality"
+                RenderOptions.BitmapScalingMode="NearestNeighbor"
                 Source="pack://application:,,,/Assets/Images/preview-file.png" />
         </Grid>
 
