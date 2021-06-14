@@ -41,14 +41,12 @@ namespace Polszyfrex.Code.Encryption
 
         private string RSAEncrypt(string message)
         {
-            string publicKey = this.Base64Decode(this._publicKey);
-
             byte[] byteMessage = Encoding.UTF8.GetBytes(message);
             using (RSACryptoServiceProvider rsaCrypto = new RSACryptoServiceProvider(this._dwKeySize))
             {
                 try
                 {                  
-                    rsaCrypto.FromXmlString(publicKey.ToString());
+                    rsaCrypto.FromXmlString(this.Base64Decode(this._publicKey));
 
                     return Convert.ToBase64String(rsaCrypto.Encrypt(byteMessage, true));
                 }
@@ -65,13 +63,11 @@ namespace Polszyfrex.Code.Encryption
 
         private string RSADecrypt(string message)
         {
-            string privateKey = this.Base64Decode(this._privateKey);
-
             using (RSACryptoServiceProvider rsaCrypto = new RSACryptoServiceProvider(this._dwKeySize))
             {
                 try
                 {
-                    rsaCrypto.FromXmlString(privateKey);
+                    rsaCrypto.FromXmlString(this.Base64Decode(this._privateKey));
                     byte[] decryptedBytes = rsaCrypto.Decrypt(Convert.FromBase64String(message), true);
 
                     return Encoding.UTF8.GetString(decryptedBytes).ToString();
