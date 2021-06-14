@@ -24,6 +24,8 @@ namespace Polszyfrex.Views.Pages
     {
         private Code.Encryption.Steganography _steganography;
         private BitmapImage _workFile;
+        private BitmapImage _encryptedFile;
+
         public Steganography()
         {
             InitializeComponent();
@@ -61,13 +63,28 @@ namespace Polszyfrex.Views.Pages
             }
         }
 
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            if (this._encryptedFile == null)
+                return;
+
+            using (FileStream stream = new FileStream(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "polszyfrex.png").ToString(), FileMode.Create))
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(this._encryptedFile));
+                encoder.Save(stream);
+            }
+        }
+
         private void Button_Encrypt(object sender, RoutedEventArgs e)
         {
             if (this._workFile == null)
                 return;
 
             this._steganography = new Code.Encryption.Steganography();
-            fieldImageAfter.Source = this._steganography.EncryptText(this._workFile, fieldMessage.Text);
+            this._encryptedFile = this._steganography.EncryptText(this._workFile, fieldMessage.Text);
+            
+            fieldImageAfter.Source = this._encryptedFile;
         }
 
         private void Button_Decrypt(object sender, RoutedEventArgs e)
@@ -76,7 +93,7 @@ namespace Polszyfrex.Views.Pages
                 return;
 
             this._steganography = new Code.Encryption.Steganography();
-            fieldImageAfter.Source = this._steganography.EncryptText(this._workFile, fieldMessage.Text);
+            fieldMessage.Text = this._steganography.DecryptText(this._workFile);
         }
     }
 }

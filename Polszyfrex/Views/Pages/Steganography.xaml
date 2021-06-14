@@ -94,6 +94,12 @@
             Orientation="Horizontal">
             <controls:MaterialButton
                 MinWidth="140"
+                Margin="0,0,4,0"
+                Click="Button_Save"
+                Content="Save"
+                Glyph="Save" />
+            <controls:MaterialButton
+                MinWidth="140"
                 Margin="4,0,4,0"
                 Click="Button_Encrypt"
                 Content="Encrypt"
