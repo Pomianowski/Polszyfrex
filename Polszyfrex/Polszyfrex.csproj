@@ -9,6 +9,8 @@
     <Product>Leszek Pomianowski</Product>
     <Description>Encryption and other things...</Description>
     <Copyright>2021 Leszek Pomianowski</Copyright>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

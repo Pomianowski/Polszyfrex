@@ -16,6 +16,23 @@ namespace Polszyfrex.Views.Pages
             this._asymmetric = new Code.Encryption.Asymmetric();
         }
 
+        private bool Verify()
+        {
+            if (string.IsNullOrEmpty(fieldPublic.Text))
+            {
+                fieldResult.Text = "Public key cannot be empty";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(fieldPrivate.Text))
+            {
+                fieldResult.Text = "Private key cannot be empty";
+                return false;
+            }
+
+            return true;
+        }
+
         private void Button_Copy(object sender, RoutedEventArgs e)
         {
             System.Windows.Clipboard.SetText(fieldResult.Text);
@@ -23,12 +40,16 @@ namespace Polszyfrex.Views.Pages
 
         private void Button_Generate(object sender, RoutedEventArgs e)
         {
-            fieldPublic.Text = this._asymmetric.GenerateKey(32);
-            fieldPrivate.Text = this._asymmetric.GenerateKey(32);
+            string[] keys = this._asymmetric.GenerateKeys();
+            fieldPublic.Text = keys[0];
+            fieldPrivate.Text = keys[1];
         }
 
         private void Button_Encrypt(object sender, RoutedEventArgs e)
         {
+            if (!this.Verify())
+                return;
+
             this._asymmetric.PublicKey = fieldPublic.Text;
             this._asymmetric.PrivateKey = fieldPrivate.Text;
 
@@ -37,6 +58,9 @@ namespace Polszyfrex.Views.Pages
 
         private void Button_Decrypt(object sender, RoutedEventArgs e)
         {
+            if (!this.Verify())
+                return;
+
             this._asymmetric.PublicKey = fieldPublic.Text;
             this._asymmetric.PrivateKey = fieldPrivate.Text;
 

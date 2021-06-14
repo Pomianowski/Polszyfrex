@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Polszyfrex.Code.Encryption
 {
     public sealed class Asymmetric: Code.Cipher
     {
+        private int _dwKeySize = 2048;
 
         private string _publicKey;
 
         private string _privateKey;
 
+        public int KeySize
+        {
+            get => this._dwKeySize;
+            set => this._dwKeySize = value;
+        }
+        
         public string PublicKey
         {
             get => this._publicKey;
@@ -26,103 +30,114 @@ namespace Polszyfrex.Code.Encryption
             set => this._privateKey = value;
         }
 
-        public string GenerateKey(int length, string pattern = "ULNS")
+        public string[] GenerateKeys()
         {
-            //U - upper case
-            //L - lower case
-            //N - numbers
-            //S - special
-
-            if (string.IsNullOrEmpty(pattern))
-                pattern = "ULNS";
-
-            pattern = pattern.ToUpper();
-
-            string characters = "";
-            if (pattern.Contains("U"))
-                characters += "GHIJKLMNOPQRSTUVWXYZABCDEF";
-
-            if (pattern.Contains("L"))
-                characters += "abcdefghijklmnopqrstuvwxyz";
-
-            if (pattern.Contains("N"))
-                characters += "0123456789";
-
-            if (pattern.Contains("S"))
-                characters += "!@#$%^&*()_+-={}[];:,.<>?|~";
-
-            Random random = new Random();
-            return new string(Enumerable.Repeat(characters, length).Select(s => s[random.Next(s.Length)]).ToArray());
+            RSA rsaCrypto = RSA.Create();
+            return new string[] {
+                this.Base64Encode(rsaCrypto.ToXmlString(false)), //public
+                this.Base64Encode(rsaCrypto.ToXmlString(true)) //private
+            };
         }
 
         private string RSAEncrypt(string message)
         {
+            string publicKey = this.Base64Decode(this._publicKey);
 
-
-            if (this._privateKey.Length < 16 || this._privateKey.Length > 32 || this._privateKey.Length % 4 != 0)
-                return "The key must be between 16 and 32 characters long and divisible by 4.";
-
-            byte[] bytesToEncrypt = Encoding.UTF8.GetBytes(message);
-
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048))
+            byte[] byteMessage = Encoding.UTF8.GetBytes(message);
+            using (RSACryptoServiceProvider rsaCrypto = new RSACryptoServiceProvider(this._dwKeySize))
             {
                 try
-                {
-                    rsa.FromXmlString(this._publicKey);
-                    var encryptedData = rsa.Encrypt(bytesToEncrypt, true);
-                    var base64Encrypted = Convert.ToBase64String(encryptedData);
-                    return base64Encrypted;
+                {                  
+                    rsaCrypto.FromXmlString(publicKey.ToString());
+
+                    return Convert.ToBase64String(rsaCrypto.Encrypt(byteMessage, true));
                 }
                 catch
                 {
                     return "The operation was unsuccessful.";
+                }
+                finally
+                {
+                    rsaCrypto.PersistKeyInCsp = false;
                 }
             }
         }
 
         private string RSADecrypt(string message)
         {
-            Span<byte> base64buffer = new Span<byte>(new byte[message.Length]);
-            if (!Convert.TryFromBase64String(message, base64buffer, out int bytesParsed))
-                return "The text to decode is not a valid BASE64 string.";
+            string privateKey = this.Base64Decode(this._privateKey);
 
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            using (RSACryptoServiceProvider rsaCrypto = new RSACryptoServiceProvider(this._dwKeySize))
             {
                 try
-                {                 
-                    rsa.FromXmlString(this._privateKey);
+                {
+                    rsaCrypto.FromXmlString(privateKey);
+                    byte[] decryptedBytes = rsaCrypto.Decrypt(Convert.FromBase64String(message), true);
 
-                    byte[] resultBytes = Convert.FromBase64String(message);
-                    var decryptedBytes = rsa.Decrypt(resultBytes, true);
-                    var decryptedData = Encoding.UTF8.GetString(decryptedBytes);
-                    return decryptedData.ToString();
+                    return Encoding.UTF8.GetString(decryptedBytes).ToString();
                 }
                 catch
                 {
                     return "The operation was unsuccessful.";
                 }
+                finally
+                {
+                    rsaCrypto.PersistKeyInCsp = false;
+                }
             }
         }
 
-        private void CheckKeys()
+        private string Base64Encode(string plainText)
         {
-            if (string.IsNullOrEmpty(this._publicKey))
-                this._publicKey = this.GenerateKey(16);
-
-            if (string.IsNullOrEmpty(this._privateKey))
-                this._privateKey = this.GenerateKey(16);
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
         }
 
+        private string Base64Decode(string encodedBase64)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(encodedBase64);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
+        private bool IsBase64(string encodedBase64)
+        {
+            Span<byte> base64buffer = new Span<byte>(new byte[encodedBase64.Length]);
+            if (!Convert.TryFromBase64String(encodedBase64, base64buffer, out int bytesParsed))
+                return false;
+
+            return true;
+        }
+
+        private bool CheckKeys()
+        {
+            if (string.IsNullOrEmpty(this._publicKey))
+                return false;
+
+            if (string.IsNullOrEmpty(this._privateKey))
+                return false;
+
+            if (!this.IsBase64(this._publicKey))
+                return false;
+
+            if (!this.IsBase64(this._privateKey))
+                return false;
+
+            return true;
+        }
 
         public string Encrypt(string message)
         {
-            this.CheckKeys();
+            if (!this.CheckKeys())
+                return "The given keys are invalid.";
+
             return this.RSAEncrypt(message);
         }
 
         public string Decrypt(string message)
         {
-            this.CheckKeys();
+            if (!this.CheckKeys())
+                return "The given keys are invalid.";
+
             return this.RSADecrypt(message);
         }
     }
